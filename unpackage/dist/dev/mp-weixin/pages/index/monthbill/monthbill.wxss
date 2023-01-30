@@ -1,0 +1,81 @@
+
+.uni_grid{
+		background-color: white;
+}
+.gridimage {
+		width: 25px;
+		height: 25px;
+}
+.gridtext {
+		font-size: 10px;
+		margin-top: 2px;
+}
+.gridtext2{
+		font-size: 15px;
+		margin-top: 5px;
+		color: #00FFFF;
+}
+.gridtext3{
+		font-size: 15px;
+		margin-top: 5px;
+		color: indianred;
+}
+.grid-item-box {
+		flex: 1;
+
+		display: flex;
+
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 15px 0;
+}
+	/* 列表 */
+.data_empty{
+		height: 600rpx;
+}
+.fui_empty{
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+}
+.billcard {
+		height: 200rpx;
+		background-color: white;
+		//box-shadow: 0 0 5px #666666;
+}
+.billneirong {
+		margin-top: 10rpx;
+		margin-left: 50rpx;
+		width: 650rpx;
+		margin-right: 50rpx;
+}
+.billtitle {
+		font-size: 40rpx;
+}
+.billtypename {
+		font-size: 30rpx;
+		margin-top: 15px;
+		color: #666666;
+}
+.billtime {
+		font-size: 30rpx;
+		margin-top: 15rpx;
+		color: #666666;
+}
+.billprice {
+		width: 100%;
+		font-size: 40rpx;
+		margin-top: -145rpx;
+		text-align: right;
+		margin-right: 30rpx;
+		color: #00FFFF;
+}
+.billprice1 {
+		width: 100%;
+		font-size: 40rpx;
+		margin-top: -145rpx;
+		text-align: right;
+		margin-right: 30rpx;
+		color: red;
+}

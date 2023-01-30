@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/bill/bill",
+    "pages/mime/mime",
+    "pages/index/monthbill/monthbill",
+    "pages/userlogin/userlogin",
+    "pages/mime/userinfo/userinfo",
+    "pages/mime/myplan/myplan"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "亲密记",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/icon/index.png",
+        "selectedIconPath": "static/images/icon/index1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/bill/bill",
+        "iconPath": "static/images/icon/bill.png",
+        "selectedIconPath": "static/images/icon/bill1.png",
+        "text": "账单"
+      },
+      {
+        "pagePath": "pages/mime/mime",
+        "iconPath": "static/images/icon/mime.png",
+        "selectedIconPath": "static/images/icon/mime1.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

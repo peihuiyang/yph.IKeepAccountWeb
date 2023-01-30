@@ -1,0 +1,1 @@
+<view qa:if="{{a}}" hidden="{{!b}}" ref="ani" animation="{{c}}" class="{{d}}" style="{{e}}" bindtap="{{f}}"><slot></slot></view>

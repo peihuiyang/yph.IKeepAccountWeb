@@ -1,0 +1,120 @@
+/* 水平间距 */
+/* 水平间距 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-pagination.data-v-a276fa4e {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.uni-pagination__total.data-v-a276fa4e {
+  font-size: 14px;
+  color: #999;
+  margin-right: 15px;
+}
+.uni-pagination__btn.data-v-a276fa4e {
+  display: flex;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 30px;
+  font-size: 12px;
+  position: relative;
+  background-color: #F0F0F0;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}
+.uni-pagination__child-btn.data-v-a276fa4e {
+  display: flex;
+  font-size: 12px;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+}
+.uni-pagination__num.data-v-a276fa4e {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  color: #666;
+  margin: 0 5px;
+}
+.uni-pagination__num-tag.data-v-a276fa4e {
+  margin: 0 5px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #999;
+  border-radius: 4px;
+}
+.uni-pagination__num-current.data-v-a276fa4e {
+  display: flex;
+  flex-direction: row;
+}
+.uni-pagination__num-current-text.data-v-a276fa4e {
+  font-size: 15px;
+}
+.current-index-text.data-v-a276fa4e {
+  color: #2979ff;
+}
+.uni-pagination--enabled.data-v-a276fa4e {
+  color: #333333;
+  opacity: 1;
+}
+.uni-pagination--disabled.data-v-a276fa4e {
+  opacity: 0.5;
+}
+.uni-pagination--hover.data-v-a276fa4e {
+  color: rgba(0, 0, 0, 0.6);
+  background-color: #eee;
+}
+.tag--active.data-v-a276fa4e:hover {
+  color: #2979ff;
+}
+.page--active.data-v-a276fa4e {
+  color: #fff;
+  background-color: #2979ff;
+}
+.page--active.data-v-a276fa4e:hover {
+  color: #fff;
+}
+.is-pc-hide.data-v-a276fa4e {
+  display: block;
+}
+.is-phone-hide.data-v-a276fa4e {
+  display: none;
+}
+@media screen and (min-width: 450px) {
+.is-pc-hide.data-v-a276fa4e {
+    display: none;
+}
+.is-phone-hide.data-v-a276fa4e {
+    display: block;
+}
+.uni-pagination__num-flex-none.data-v-a276fa4e {
+    flex: none;
+}
+}

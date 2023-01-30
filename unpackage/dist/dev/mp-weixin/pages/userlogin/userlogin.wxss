@@ -1,0 +1,104 @@
+/* 水平间距 */
+/* 水平间距 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+*.data-v-9f827278 {
+  box-sizing: border-box;
+}
+.page.data-v-9f827278 {
+  position: relative;
+  height: 100vh;
+}
+.top-background-raduis.data-v-9f827278 {
+  height: 30%;
+  background-color: #d8d8d8;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+.is-input-border.data-v-9f827278 {
+  border-radius: 7px !important;
+}
+.uni-easyinput__content.data-v-9f827278 {
+  min-height: 39px !important;
+}
+.hj-input.data-v-9f827278 {
+  margin-top: 15rpx;
+}
+.hj-input.data-v-9f827278:nth-child(2) {
+  margin-top: 35rpx;
+}
+.login-box.data-v-9f827278 {
+  top: 20%;
+  position: absolute;
+  width: 80%;
+  left: 10%;
+  right: 10%;
+  height: 550rpx;
+  padding: 30rpx;
+  background-color: white;
+  border-radius: 40rpx;
+  box-shadow: 9px 9px 6px #e3e3e3;
+}
+.login-box .login-card-input.data-v-9f827278 {
+  height: 50%;
+  padding: 5rpx;
+}
+.login-box .login-card-title.data-v-9f827278 {
+  height: 20%;
+  padding: 10rpx;
+  display: flex;
+  justify-content: center;
+}
+.login-box .login-card-title .login-card-title-content.data-v-9f827278 {
+  font-size: 1.2em;
+  color: #66ccff;
+  border-bottom: 3px solid #66ccff;
+}
+.login-box .login-card-loginIn.data-v-9f827278 {
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  padding: 10rpx;
+  align-items: center;
+}
+.login-box .login-card-loginIn .login-card-loginIn-btn.data-v-9f827278 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #66ccff;
+  width: 40%;
+  font-size: 1em;
+  height: 60%;
+  border-radius: 40rpx;
+  color: white;
+  margin-left: 5%;
+}
+.login-box .login-bottom-info.data-v-9f827278 {
+  height: 5%;
+  display: flex;
+  font-size: 0.7em;
+  color: #66ccff;
+  justify-content: end;
+}
+.bottom-message.data-v-9f827278 {
+  position: absolute;
+  height: 70rpx;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9em;
+  overflow: hidden;
+  color: #969898;
+  bottom: 40rpx;
+}
