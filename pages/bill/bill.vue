@@ -239,7 +239,7 @@
 					this.modifyBill(item);
 				}
 				else if(e.content.text === '删除'){
-					this.deleteBill(item.id);
+					this.deleteBill(item);
 				}
 			},
 			fabtrigger(e){
@@ -259,7 +259,6 @@
 				if(e.detail.status === 'more'){
 					that.loadStatus = 'loading';
 					that.queryBill.pageIndex = that.queryBill.pageIndex + 1;
-					console.log(that.queryBill);
 					that.searchBill(that.queryBill.pageIndex);
 				}
 			},
@@ -282,10 +281,10 @@
 				that.$refs.billpopup.open();
 			},
 			// 删除按钮点击事件
-			deleteBill(id){
+			deleteBill(item){
 				var that = this;
 				uni.request({
-				    url: '/api/ika/v1/accountrecord/delete?id=' + id , 
+				    url: '/api/ika/v1/accountrecord/delete?id=' + item.id , 
 					method: "DELETE",
 					timeout:3000,
 					header:{
@@ -298,8 +297,19 @@
 								icon: 'success',
 								duration: 2000
 							});
-							that.showData();
-							request.getMonthBillCount(true);
+							// 刷新列表
+							let index = that.billDatas.findIndex(i => i == item);
+							console.log('索引：'+ index);
+							if(index >= 0){
+								that.billDatas.splice(index,1);								
+							}
+							if(that.billDatas.length > 0){
+								that.isDataEmpty = false;
+							}
+							// 如果是当月则刷新月份金额统计
+							if(item.year === new Date().getFullYear() && item.month === (new Date().getMonth() + 1)){
+								request.getMonthBillCount(true);
+							}
 						}
 						else{	
 							uni.showToast({
@@ -381,7 +391,7 @@
 								icon: 'error',
 								duration: 2000
 							});
-							that.loadStatus = 'more';
+							that.loadStatus = 'no-more';
 						}
 				    },
 					fail:(res)=>{
@@ -440,7 +450,10 @@
 								});
 								that.$refs.billpopup.close();
 								that.showData();
-								request.getMonthBillCount(true);
+								// 如果是当月则刷新月份金额统计
+								if(that.accountFormData.year === new Date().getFullYear() && that.accountFormData.month === (new Date().getMonth() + 1)){
+									request.getMonthBillCount(true);
+								}
 							}
 							else{	
 								uni.showToast({
@@ -473,8 +486,12 @@
 			// 获取账单
 			getPlanData(){
 				var that = this;
+				let plandate = that.accountFormData.keepTime;
+				if(plandate === ''){
+					plandate = tools.formatDate(new Date());
+				}
 				uni.request({
-				    url: '/api/ika/v1/plan/getnotfinish', 
+				    url: '/api/ika/v1/plan/getbydate?date=' + plandate,
 					method: "GET",
 					timeout:3000,
 					header:{

@@ -48,8 +48,8 @@
 		},
 		onLoad(){
 			var that = this;
-			that.nowversion = 'v1.0.0';
-			that.releasemsg = '2023-01-30\n由YPH最后修改发布。';
+			that.nowversion = 'v1.0.1';
+			that.releasemsg = '2023-02-08\n由YPH最后修改发布。';
 		},
 		methods: {
 			functionChange(e) {

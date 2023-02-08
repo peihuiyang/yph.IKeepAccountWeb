@@ -82,7 +82,7 @@
 				billDatas:[],
 				queryBill: {
 				  pageIndex: 1,
-				  pageSize: 10,
+				  pageSize: 100,
 				  // uId: '',
 				  // payType: '',
 				  // purpose: '',
@@ -96,18 +96,24 @@
 				},
 			}
 		},
+		// 初始化加载
 		onLoad(){
 			var that = this;
 			that.monthCount("",true);
-			that.dayBillCount(tools.formatDate(new Date()));
+			let day = tools.formatDate(new Date());
+			that.dayBillCount(day);
+			that.queryBill.startTime = day;
+			that.queryBill.endTime = day;
+			that.getBillData();
 		},
 		methods: {
+			// 日期改变
 			changeDate(e){
 				var that = this;
 				that.dayBillCount(e.fulldate);
 				that.queryBill.startTime = e.fulldate;
 				that.queryBill.endTime = e.fulldate;
-				that.getBiillData();
+				that.getBillData();
 			},
 			// 月度统计
 			monthCount(month,isNow){
@@ -153,15 +159,14 @@
 					});
 				}
 			},
+			// 月份改变
 			changeMonth(e){
 				var month =[e.year, e.month,1].map(tools.formatNumber).join('-');
-				console.log(month);
 				this.monthCount(month,false);
 			},
 			// 日期统计
 			dayBillCount(day){
 				var that = this;
-				console.log(day);
 				uni.request({
 				    url: '/api/ika/v1/accountrecord/statistics', 
 					method: "POST",
@@ -195,19 +200,23 @@
 					}
 				});
 			},
-			getBiillData(){
+			// 获取每日账单列表
+			getBillData(){
 				var that = this;
 				that.queryBill.pageIndex = 1;
-				console.log(that.queryBill);
+				uni.showLoading({
+					title: '数据获取中……'
+				});
 				uni.request({
 				    url: '/api/ika/v1/accountrecord/findbypage', 
 					method: "POST",
-					timeout:3000,
+					timeout:4000,
 					header:{
 						"Authorization":that.userInfo.token
 					},
 					data: that.queryBill,
 				    success: (res) => {
+						uni.hideLoading();
 						if(res.data.status === 1){
 							that.billDatas = [],
 							that.isDataEmpty = false;
@@ -218,15 +227,20 @@
 								title: res.data.message,
 								icon: 'error',
 								duration: 2000
-							})						
+							});
+							that.billDatas = [],
+							that.isDataEmpty = true;
 						}
 				    },
 					fail:(res)=>{
+						uni.hideLoading();
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						});							
+						});	
+						that.billDatas = [],
+						that.isDataEmpty = true;
 					}
 				});
 			},

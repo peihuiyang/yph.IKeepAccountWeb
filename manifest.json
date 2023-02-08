@@ -61,11 +61,11 @@
         "devServer" : {
             "proxy" : {
                 "/api/ika" : {
-                    "target" : "http://106.13.10.198:8030",
+                    "target" : "http://106.13.10.198:8080",
                     "changOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {
-                        "^/api" : "" //路径重写
+                        "/api" : "/TT/api" //路径重写
                     }
                 }
             },

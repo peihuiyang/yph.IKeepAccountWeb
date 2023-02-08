@@ -256,7 +256,6 @@
 			submitAccount(ref) {
 				var that = this;
 				that.$refs[ref].validate().then(res => {
-					console.log(that.accountFormData);
 					uni.request({
 					    url: '/api/ika/v1/accountrecord/add', 
 						method: "POST",
@@ -273,7 +272,9 @@
 									duration: 1000
 								});
 								that.$refs.popup.close();
-								that.getBillCount(true);
+								if(that.accountFormData.keepTime.substring(0,7) === tools.formatMonth(new Date())){
+									that.getBillCount(true);
+								}
 							}
 							else{	
 								uni.showToast({
@@ -302,11 +303,15 @@
 			changeDate(e){
 				this.accountFormData.keepTime = e;
 			},
-			// 获取账单
+			// 获取计划
 			getPlanData(){
 				var that = this;
+				let plandate = that.accountFormData.keepTime;
+				if(plandate === ''){
+					plandate = tools.formatDate(new Date());
+				}
 				uni.request({
-				    url: '/api/ika/v1/plan/getnotfinish', 
+				    url: '/api/ika/v1/plan/getbydate?date=' + plandate, 
 					method: "GET",
 					timeout:3000,
 					header:{
@@ -343,11 +348,22 @@
 				if(!mylogin.checkLogin(false)){
 					return;				
 				}
+				uni.showLoading({
+					title: '金额统计刷新中……'
+				});
+				let timeoutNum = 100;
+				if(noUseCache){
+					timeoutNum = 2000;
+				}
 				request.getMonthBillCount(noUseCache);
-				const month_income_cache = uni.getStorageSync('month_income_cache');
-				const month_paymoney_cache = uni.getStorageSync('month_paymoney_cache');
-				that.incomecount = month_income_cache;
-				that.paycount = month_paymoney_cache;
+				
+				setTimeout(()=>{
+					const month_income_cache = uni.getStorageSync('month_income_cache');
+					const month_paymoney_cache = uni.getStorageSync('month_paymoney_cache');
+					that.incomecount = month_income_cache;
+					that.paycount = month_paymoney_cache;
+					uni.hideLoading();
+				},timeoutNum);
 			}
 		}
 	}
