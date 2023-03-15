@@ -171,26 +171,32 @@
 		onLoad(){
 			this.getNotice();
 			this.getBillCount(false);
-		},
-		onReady(){
 			this.getPurpose();
 			this.getPayType();
+		},
+		// 上拉刷新
+		onPullDownRefresh() {
+			this.getPurpose();
+			this.getPayType();
+			this.getNotice();
+			setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1500);
+			this.getBillCount(true);
 		},
 		methods: {
 			// 获取通知信息
 			getNotice(){
+				var that = this;
 				var notice_index  = uni.getStorageSync('notice_index');
+				console.log(notice_index);
 				if(notice_index>=10){
-					uni.request({
-						url: '/api/ika/v1/sysdic/getnotice', 
-						method: "GET",
-						timeout: 3000,
-						success: (res) => {
-							console.log(res.data);
-							if(res.data.status === 1){	
+					that.$myapi.baseRequest('/api/ika/v1/sysdic/getnotice', 'GET',that.userInfo.token,
+						{}).then(res=>{
+							if(res.data.status === 1){
 								uni.setStorageSync('notice_index',1);
 								uni.setStorageSync('notice_msg',res.data.message);
-								this.noticetext = res.data.message;
+								that.noticetext = res.data.message;
 							}
 							else{
 								uni.showToast({
@@ -199,19 +205,17 @@
 									duration: 2000
 								})						
 							}
-						},
-						fail:(res)=>{
+						}).catch(error=>{
 							uni.showToast({
 								title: '请求通知信息：' + res.errMsg,
 								icon: 'fail',
 								duration: 2000
-							});							
-						}
-					});
+							});			
+						});
 				}
 				else{
 					uni.setStorageSync('notice_index',notice_index + 1);
-					this.noticetext = uni.getStorageSync('notice_msg');
+					that.noticetext = uni.getStorageSync('notice_msg');
 				}
 			},
 			selectCount(){
@@ -256,16 +260,9 @@
 			submitAccount(ref) {
 				var that = this;
 				that.$refs[ref].validate().then(res => {
-					uni.request({
-					    url: '/api/ika/v1/accountrecord/add', 
-						method: "POST",
-						timeout:3000,
-						header:{
-							"Authorization":that.userInfo.token
-						},
-						data: that.accountFormData,
-					    success: (res) => {
-							if(res.data.status === 1){	
+					that.$myapi.baseRequest('/api/ika/v1/accountrecord/add', 'POST',that.userInfo.token,
+						that.accountFormData).then(res=>{
+							if(res.data.status === 1){
 								uni.showToast({
 									title: res.data.message,
 									icon: 'success',
@@ -283,15 +280,13 @@
 									duration: 2000
 								})						
 							}
-					    },
-						fail:(res)=>{
+						}).catch(error=>{
 							uni.showToast({
 								title: res.errMsg,
 								icon: 'fail',
 								duration: 2000
-							});							
-						}
-					});
+							});				
+						});
 				}).catch(err => {
 					uni.showToast({
 						title: err[0].errorMessage,
@@ -310,15 +305,9 @@
 				if(plandate === ''){
 					plandate = tools.formatDate(new Date());
 				}
-				uni.request({
-				    url: '/api/ika/v1/plan/getbydate?date=' + plandate, 
-					method: "GET",
-					timeout:3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-				    success: (res) => {
-						if(res.data.status === 1){	
+				that.$myapi.baseRequest('/api/ika/v1/plan/getbydate?date=' + plandate, 'GET',that.userInfo.token,
+					{}).then(res=>{
+						if(res.data.status === 1){
 							// 赋值选项列表
 							that.planIdRange = res.data.data;
 						}
@@ -329,15 +318,13 @@
 								duration: 2000
 							})						
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						})
-					}
-				});
+						});				
+					});
 			},
 			changePlanId(e){
 				this.accountFormData.planId = e;
@@ -353,7 +340,7 @@
 				});
 				let timeoutNum = 100;
 				if(noUseCache){
-					timeoutNum = 2000;
+					timeoutNum = 1000;
 				}
 				request.getMonthBillCount(noUseCache);
 				
@@ -362,8 +349,8 @@
 					const month_paymoney_cache = uni.getStorageSync('month_paymoney_cache');
 					that.incomecount = month_income_cache;
 					that.paycount = month_paymoney_cache;
-					uni.hideLoading();
 				},timeoutNum);
+				uni.hideLoading();
 			}
 		}
 	}

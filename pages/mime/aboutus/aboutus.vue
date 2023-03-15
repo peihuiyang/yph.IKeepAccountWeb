@@ -30,9 +30,27 @@
 					<view class="content">
 						<text class="text">用户绑定关系后，可以查看对应用户的账单统计和相关计划。</text>
 					</view>
-				</uni-collapse-item>
+				</uni-collapse-item> 
 			</uni-collapse>
 		</uni-section>
+		<uni-section title="联系我们" type="line" padding>
+				<text class="text">邮箱：1293035342@qq.com</text>
+		</uni-section>
+		<uni-section title="分享应用" type="line" padding>
+				<button class="button" type="primary" @click="shareToggle"><text class="button-text">分享亲密记</text></button>
+		</uni-section>
+	</view>
+	<view>
+		<!-- 分享示例 -->
+		<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
+			<uni-popup-share @select="selectShare"></uni-popup-share>
+		</uni-popup>
+	</view>
+	<view>
+		<!-- 提示窗示例 -->
+		<uni-popup ref="alertDialog" type="dialog">
+			<uni-popup-dialog :type="successdialog" :title="titledialog" :content="releasemsg"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
@@ -43,13 +61,14 @@
 				nowversion:'',      //最新版本
 				releasemsg:'',     //发布信息
 				// 功能介绍默认
-				accordionVal:'0'
+				accordionVal:'0',
+				successdialog:'success',
+				titledialog:'版本信息'
 			}
 		},
 		onLoad(){
 			var that = this;
-			that.nowversion = 'v1.0.1';
-			that.releasemsg = '2023-02-08\n由YPH最后修改发布。';
+			that.nowversion = 'v1.1.0';
 		},
 		methods: {
 			functionChange(e) {
@@ -58,11 +77,22 @@
 			//查看发布时间
 			msgFind:function(){
 			    var that = this;
-			    uni.showToast({
-			    	title: that.releasemsg,
-			    	duration: 5000
-			    });
+				that.successdialog = 'success';
+				that.titledialog = '版本信息';
+				that.releasemsg = '2023-03-15\n由YPH最后修改发布。';
+				that.$refs.alertDialog.open()
 			},
+			//点击分享
+			shareToggle() {
+				this.$refs.share.open()
+			},
+			selectShare(e){
+				var that = this;
+				that.successdialog = 'warn';
+				that.titledialog = '分享到' + e.item.text;
+				that.releasemsg = '小主别急，我们正在抓紧对接';
+				that.$refs.alertDialog.open()
+			}
 		}
 	}
 </script>

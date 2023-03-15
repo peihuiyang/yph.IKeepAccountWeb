@@ -5,45 +5,51 @@
 	<view class="content">
 		<view v-if="current === 0" class="card_list">
 			<view v-for="item in plans">
-				<uni-swipe-action>
-					<uni-swipe-action-item :right-options="swiperightoptions" show="none" :auto-close="true"
-						:key="item.id" @click="swipeBindClick($event,item)">
-						<uni-card v-bind:title="item.name" :sub-title="item.code" :extra="item.reType_Desc" @dblclick="getPlanDetail(item.id)">
-							<uni-tag :mark="true" :text="item.amountMoney" :type="item.reType === 0 ? 'primary':'error'" size="mini" />
-							<text class="uni-card-body"> 备注: {{item.remark}}</text>
-						</uni-card>
-					</uni-swipe-action-item>
-				</uni-swipe-action>
+				<uni-tooltip :content="双击查看详情">
+					<uni-swipe-action>
+						<uni-swipe-action-item :right-options="swiperightoptions" show="none" :auto-close="true"
+							:key="item.id" @click="swipeBindClick($event,item)">
+							<uni-card v-bind:title="item.name" :sub-title="item.code" :extra="item.reType_Desc" @dblclick="getPlanDetail(item.id)">
+								<uni-tag :mark="true" :text="item.amountMoney" :type="item.reType === 0 ? 'primary':'error'" size="mini" />
+								<text class="uni-card-body"> 备注: {{item.remark}}</text>
+							</uni-card>
+						</uni-swipe-action-item>
+					</uni-swipe-action>
+				</uni-tooltip>
 			</view>
 			<uni-pagination class="cust_pagination" :show-icon="true" title="分页" :total="numTotal" :current="pageIndex"
 				:pageSize="pageSize" @change="changePage"/>
 		</view>
 		<view v-if="current === 1" class="card_list">
 			<view v-for="item in plans">
-				<uni-swipe-action>
-					<uni-swipe-action-item :right-options="swiperightoptions" show="none" :auto-close="true"
-						:key="item.id" @click="swipeBindClick($event,item)">
-						<uni-card v-bind:title="item.name" :sub-title="item.code" :extra="item.reType_Desc">
-							<uni-tag :mark="true" :text="item.amountMoney" :type="item.reType === 0 ? 'primary':'error'" size="mini" />
-							<text class="uni-card-body"> 备注: {{item.remark}}</text>
-						</uni-card>
-					</uni-swipe-action-item>
-				</uni-swipe-action>
+				<uni-tooltip :content="双击查看详情">
+					<uni-swipe-action>
+						<uni-swipe-action-item :right-options="swiperightoptions" show="none" :auto-close="true"
+							:key="item.id" @click="swipeBindClick($event,item)">
+							<uni-card v-bind:title="item.name" :sub-title="item.code" :extra="item.reType_Desc" @dblclick="getPlanDetail(item.id)">
+								<uni-tag :mark="true" :text="item.amountMoney" :type="item.reType === 0 ? 'primary':'error'" size="mini" />
+								<text class="uni-card-body"> 备注: {{item.remark}}</text>
+							</uni-card>
+						</uni-swipe-action-item>
+					</uni-swipe-action>
+				</uni-tooltip>
 			</view>
 			<uni-pagination class="cust_pagination" :show-icon="true" title="分页" :total="numTotal" :current="pageIndex"
 				:pageSize="pageSize" @change="changePage"/>
 		</view>
 		<view v-if="current === 2" class="card_list">
 			<view v-for="item in plans">
-				<uni-swipe-action>
-					<uni-swipe-action-item :right-options="swiperightoptions" show="none" :auto-close="true"
-						:key="item.id" @click="swipeBindClick($event,item)">
-						<uni-card v-bind:title="item.name" :sub-title="item.code" :extra="item.reType_Desc">
-							<uni-tag :mark="true" :text="item.amountMoney" :type="item.reType === 0 ? 'primary':'error'" size="mini" />
-							<text class="uni-card-body"> 备注: {{item.remark}}</text>
-						</uni-card>
-					</uni-swipe-action-item>
-				</uni-swipe-action>
+				<uni-tooltip :content="双击查看详情">
+					<uni-swipe-action>
+						<uni-swipe-action-item :right-options="swiperightoptions" show="none" :auto-close="true"
+							:key="item.id" @click="swipeBindClick($event,item)">
+							<uni-card v-bind:title="item.name" :sub-title="item.code" :extra="item.reType_Desc" @dblclick="getPlanDetail(item.id)">
+								<uni-tag :mark="true" :text="item.amountMoney" :type="item.reType === 0 ? 'primary':'error'" size="mini" />
+								<text class="uni-card-body"> 备注: {{item.remark}}</text>
+							</uni-card>
+						</uni-swipe-action-item>
+					</uni-swipe-action>
+				</uni-tooltip>
 			</view>
 			<uni-pagination class="cust_pagination" :show-icon="true" title="分页" :total="numTotal" :current="pageIndex"
 				:pageSize="pageSize" @change="changePage"/>
@@ -242,20 +248,13 @@
 					title: '数据查询中……'
 				});
 				that.plans = [];
-				uni.request({
-				    url: '/api/ika/v1/plan/findbypage', 
-					method: "POST",
-					timeout:3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-				    data: {
-				        uId: that.userInfo.id,
+				that.$myapi.baseRequest('/api/ika/v1/plan/findbypage', 'POST',that.userInfo.token,
+					{
+					    uId: that.userInfo.id,
 						pageIndex:pageIndex,
 						pageSize:5,
 						planType:that.current
-				    },
-				    success: (res) => {
+					}).then(res=>{
 						uni.hideLoading();
 						if(res.data.status === 1){	
 							// 修改总条数和赋值列表
@@ -273,31 +272,22 @@
 								duration: 2000
 							})						
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.hideLoading();
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
 						})	
-					}
-				});
+					});
 			},
 			// 提交计划
 			submitPlan(ref) {
 				var that = this;
 				that.$refs[ref].validate().then(res => {
-					uni.request({
-					    url: '/api/ika/v1/plan/add', 
-						method: "POST",
-						timeout:3000,
-						header:{
-							"Authorization":that.userInfo.token
-						},
-						data: that.planFormData,
-					    success: (res) => {
-							if(res.data.status === 1){	
+					that.$myapi.baseRequest('/api/ika/v1/plan/add', 'POST',that.userInfo.token,
+						that.planFormData).then(res=>{
+							if(res.data.status === 1){
 								uni.showToast({
 									title: res.data.message,
 									icon: 'success',
@@ -313,15 +303,13 @@
 									duration: 2000
 								})						
 							}
-					    },
-						fail:(res)=>{
+						}).catch(error=>{
 							uni.showToast({
 								title: res.errMsg,
 								icon: 'fail',
 								duration: 2000
-							});							
-						}
-					});
+							});	
+						});
 				}).catch(err => {
 					uni.showToast({
 						title: err[0].errorMessage,
@@ -343,15 +331,9 @@
 			// 获取父级计划
 			getParentData(){
 				var that = this;
-				uni.request({
-				    url: '/api/ika/v1/plan/getnotfinish', 
-					method: "GET",
-					timeout:3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-				    success: (res) => {
-						if(res.data.status === 1){	
+				that.$myapi.baseRequest('/api/ika/v1/plan/getnotfinish', 'GET',that.userInfo.token,
+					{}).then(res=>{
+						if(res.data.status === 1){
 							// 赋值选项列表
 							that.parentIdRange = res.data.data;
 						}
@@ -362,15 +344,13 @@
 								duration: 2000
 							})						
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
 						})
-					}
-				});
+					});
 			},
 			// 选项事件
 			changeParentId(e){
@@ -415,15 +395,8 @@
 					uni.showLoading({
 						title: '数据修改中……'
 					});
-					uni.request({
-					    url: '/api/ika/v1/plan/modify', 
-						method: "POST",
-						timeout:3000,
-						header:{
-							"Authorization":that.userInfo.token
-						},
-						data: that.planModifyFormData,
-					    success: (res) => {
+					that.$myapi.baseRequest('/api/ika/v1/plan/modify', 'POST',that.userInfo.token,
+						that.planModifyFormData).then(res=>{
 							uni.hideLoading();
 							if(res.data.status === 1){	
 								uni.showToast({
@@ -441,16 +414,13 @@
 									duration: 2000
 								})						
 							}
-					    },
-						fail:(res)=>{
-							uni.hideLoading();
+						}).catch(error=>{
 							uni.showToast({
 								title: res.errMsg,
 								icon: 'fail',
 								duration: 2000
-							});							
-						}
-					});
+							})
+						});
 				}).catch(err => {
 					uni.showToast({
 						title: err[0].errorMessage,
@@ -463,14 +433,8 @@
 			// 删除计划
 			deletePlan(id){
 				var that = this;
-				uni.request({
-				    url: '/api/ika/v1/plan/delete?id=' + id , 
-					method: "DELETE",
-					timeout:3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-				    success: (res) => {
+				that.$myapi.baseRequest('/api/ika/v1/plan/delete?id=' + id, 'DELETE',that.userInfo.token,
+					{}).then(res=>{
 						if(res.data.status === 1){
 							uni.showToast({
 								title: res.data.message,
@@ -486,15 +450,13 @@
 								duration: 2000
 							})						
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						});							
-					}
-				});
+						})
+					});
 			}
 		}
 	}

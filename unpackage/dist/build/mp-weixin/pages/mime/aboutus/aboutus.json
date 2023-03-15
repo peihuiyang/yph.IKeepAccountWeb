@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "关于我们",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-tooltip": "../../../uni_modules/uni-tooltip/components/uni-tooltip/uni-tooltip",
+    "uni-collapse-item": "../../../uni_modules/uni-collapse/components/uni-collapse-item/uni-collapse-item",
+    "uni-collapse": "../../../uni_modules/uni-collapse/components/uni-collapse/uni-collapse",
+    "uni-section": "../../../uni_modules/uni-section/components/uni-section/uni-section"
+  }
+}

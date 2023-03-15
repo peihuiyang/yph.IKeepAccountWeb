@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "月度账单",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "fui-empty": "../../../components/firstui/fui-empty/fui-empty",
+    "uni-calendar": "../../../uni_modules/uni-calendar/components/uni-calendar/uni-calendar",
+    "uni-grid-item": "../../../uni_modules/uni-grid/components/uni-grid-item/uni-grid-item",
+    "uni-grid": "../../../uni_modules/uni-grid/components/uni-grid/uni-grid"
+  }
+}

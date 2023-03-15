@@ -8,15 +8,14 @@
 			</view>
 			<view class="fot-xh" @click="getUserInfo()">
 				<view class="pic">
-					<image src="../../static/images/image/touxiang.png" style="width: 130rpx;" mode="widthFix">
-					</image>
+					<image :src="gender === 0?'../../static/images/image/boytouxiang.png' : '../../static/images/image/girltouxiang.png'" style="width: 130rpx;" mode="widthFix"></image>
 				</view>
 				<view class="txt">
 					<view class="name">
 						<view class="h3">
 							{{userName}}
 						</view>
-						<view class="phone">
+						<view class="phone" :style="'background:url(../../static/images/image/'+ levelimg +'.png) no-repeat right center'">
 							{{userPhone}}
 						</view>
 					</view>
@@ -92,20 +91,39 @@
 	export default {
 		data() {
 			// 判断是否已登录，否跳转登录页，是调整个人详情页
-			const userInfo = uni.getStorageSync('user_info');
 			return {
-				userInfo: userInfo,
+				gender:0,
+				userInfo: uni.getStorageSync('user_info'),
 				title: '个人中心',
-				userName:userInfo === "" ? "":userInfo.uName,
-				userPhone:userInfo === "" ? "":userInfo.phone,
+				userName:'',
+				userPhone:'',
 				popupMessageType:'success',
 				messageText:'',
+				levelimg:0
 			}
 		},
 		onLoad() {
-			
+			this.getUserData();
+		},
+		onShow(){
+			this.getUserData();
+		},
+		// 上拉刷新
+		onPullDownRefresh() {
+			this.getUserData();
+			setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 500);
 		},
 		methods: {
+			getUserData(){
+				var that = this;
+				that.userInfo = uni.getStorageSync('user_info');
+				that.userName = that.userInfo === "" ? "请点击登录账号":that.userInfo.uName;
+				that.userPhone = that.userInfo === "" ? "" : that.userInfo.phone;
+				that.gender = that.userInfo === "" ? 0 : that.userInfo.gender;
+				that.levelimg = that.userInfo === "" ? 0 : that.userInfo.aLevel;
+			},
 			// 获取用户信息
 			getUserInfo() {
 				if(mylogin.checkLogin(true)){

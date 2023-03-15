@@ -21,7 +21,7 @@
 				  @blur="PassWordBlurBorderStyle" :styles="inputColorConfigToPassWord"
 				   placeholder="请输入密码"></uni-easyinput>
 				   
-				<view class="slider-content">
+				<view class="slider-content" style="box-shadow: none;">
 					<view class="slider-container" :style="{backgroundColor:sliderBlockBg,touchAction: 'none'}">
 						<view class="" style="height: 100%;font-size: 26rpx;color: #000;text-align: center;line-height: 60rpx;">
 							{{value==100?successText:initText}}
@@ -30,7 +30,7 @@
 							
 						</view>
 						<view class="slider-block" :style="{left:!value?'0':'calc('+value+'% - '+sliderBlockWidth+'rpx)',width:sliderBlockWidth+'rpx'}">
-							>>
+							-->
 						</view>
 						<slider :value="value" @change="sliderChange" :disabled="disabled" activeColor="transparent" @changing="changing" block-color="transparent" :block-size="35" backgroundColor="transparent" 
 							style="position: absolute;top:6rpx;left: 0;z-index: 5;width: 88%;" />
@@ -52,7 +52,7 @@
 				   
 				<view class="slider-content">
 					<view class="slider-container" :style="{backgroundColor:sliderBlockBg,touchAction: 'none'}">
-						<view class="" style="height: 100%;font-size: 26rpx;color: #000;text-align: center;line-height: 60rpx;">
+						<view style="height: 100%;font-size: 26rpx;color: #000;text-align: center;line-height: 60rpx;">
 							{{value==100?successText:initText}}
 						</view>
 						<view class="front" :style="{width: value+'%',backgroundColor:forntBg}">
@@ -87,8 +87,8 @@ export default {
 	    
 	},
   data() {
-		
     return {
+		userInfo: uni.getStorageSync('user_info'),
 		items: ['登录', '注册'],
 		current: 0,
       // 输入框边框颜色默认值
@@ -116,7 +116,7 @@ export default {
 	  initText:'右滑验证',
 	  successText:'验证成功',
 	  sliderBlockBg:'#dae2d0',
-	  forntBg:'green',
+	  forntBg:'#66ffff',
 	  sliderBlockWidth:80,
 	  reset:true,
 	  isCheckSlider:true,
@@ -156,15 +156,11 @@ export default {
 	// 登录
 	userlogin(){
 		var that = this;
-		uni.request({
-		    url: '/api/ika/v1/user/login', 
-			method: "POST",
-			timeout:3000,
-		    data: {
-		        name: that.user,
+		that.$myapi.baseRequest('/api/ika/v1/user/login', 'POST',that.userInfo.token,
+			{
+				name: that.user,
 				password:that.pass
-		    },
-		    success: (res) => {
+			}).then(res=>{
 				that.value=0;
 				if(res.data.status === 1){
 					that.messageText = res.data.message;
@@ -179,14 +175,9 @@ export default {
 					that.popupMessageType = 'warn';
 					that.$refs.popup.open()
 				}
-		    },
-			fail:(res)=>{
-				console.log(res);
-				that.messageText = '登录失败，请稍后再试(' + res.errMsg + ')';
-				that.popupMessageType = 'error';
-				that.$refs.popup.open()
-			}
-		});
+			}).catch(error=>{
+				console.log(error);
+			});
 	},
 	// 注册
 	userregister(){
@@ -194,16 +185,12 @@ export default {
 		uni.showLoading({
 			title: '注册中……'
 		});
-		uni.request({
-		    url: '/api/ika/v1/user/add', 
-			method: "POST",
-			timeout:3000,
-		    data: {
-		        uName: that.user,
+		that.$myapi.baseRequest('/api/ika/v1/user/add', 'POST',that.userInfo.token,
+			{
+				uName: that.user,
 				password:that.pass,
 				phone:that.user
-		    },
-		    success: (res) => {
+			}).then(res=>{
 				uni.hideLoading();
 				if(res.data.status === 1){
 					that.userlogin();
@@ -213,14 +200,12 @@ export default {
 					that.popupMessageType = 'warn';
 					that.$refs.popup.open()
 				}
-		    },
-			fail:(res)=>{
+			}).catch(error=>{
 				uni.hideLoading();
-				that.messageText = '登录失败，请稍后再试(' + res.errMsg + ')';
+				that.messageText = '登录失败，请稍后再试(' + error.errMsg + ')';
 				that.popupMessageType = 'error';
 				that.$refs.popup.open()
-			}
-		});
+			});
 	},
 	changing(e){		
 		this.value=e.detail.value
@@ -249,6 +234,7 @@ export default {
   }
 };
 </script>
+
 <style lang="scss" scoped>
 * {
   box-sizing: border-box;
@@ -357,14 +343,15 @@ export default {
 	height: 60rpx;
 	margin-top: 30rpx;
 }
-.slider-container {
+
+::v-deep .slider-container {
 	position: relative;
 	border: 2rpx solid #C0C0C0;
 	height: 60rpx;
 	border-radius: 8rpx;
 	overflow: hidden;
 	width: 100%;
-		
+	
 	.uni-slider-thumb{
 		box-shadow: none;
 	}
@@ -374,7 +361,6 @@ export default {
 		left: 0;
 		top: 0;
 		color: #787878;
-		border-right: 1px solid #cccccc;
 		line-height: 60rpx;
 		background-color: #fff;
 		text-align: center;

@@ -110,14 +110,8 @@
 				uni.showLoading({
 					title: '获取计划详情中……'
 				});
-				uni.request({
-					url: '/api/ika/v1/plan/getbyid?id=' + id, 
-					method: "GET",
-					timeout: 3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-					success: (res) => {
+				that.$myapi.baseRequest('/api/ika/v1/plan/getbyid?id=' + id, 'GET',that.userInfo.token,
+					{}).then(res=>{
 						uni.hideLoading();
 						if(res.data.status === 1){	
 							that.useRate = res.data.data.recordMoney / res.data.data.amountMoney;
@@ -133,16 +127,14 @@
 								duration: 2000
 							})						
 						}
-					},
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.hideLoading();
 						uni.showToast({
 							title: '请求计划详情：' + res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						});							
-					}
-				});
+						});		
+					});
 			},
 			// 初始化表格
 			init() {

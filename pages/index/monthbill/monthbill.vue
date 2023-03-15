@@ -110,9 +110,12 @@
 			// 日期改变
 			changeDate(e){
 				var that = this;
+				console.log(e);
 				that.dayBillCount(e.fulldate);
 				that.queryBill.startTime = e.fulldate;
 				that.queryBill.endTime = e.fulldate;
+				that.queryBill.month = e.month;
+				that.queryBill.year = e.year;
 				that.getBillData();
 			},
 			// 月度统计
@@ -125,19 +128,12 @@
 					that.monthpaycount = month_paymoney_cache;
 				}
 				else{
-					uni.request({
-					    url: '/api/ika/v1/accountrecord/statistics', 
-						method: "POST",
-						timeout:3000,
-						header:{
-							"Authorization":that.userInfo.token
-						},
-						data: {
+					that.$myapi.baseRequest('/api/ika/v1/accountrecord/statistics', 'POST',that.userInfo.token,
+						{
 							keepTime:month,
 							timeQueryType:1
-						},
-					    success: (res) => {
-							if(res.data.status === 1){	
+						}).then(res=>{
+							if(res.data.status === 1){
 								that.monthincomecount = res.data.data.statisticsItem[0].incomeMoney;
 								that.monthpaycount = res.data.data.statisticsItem[0].payMoney;
 							}
@@ -148,15 +144,13 @@
 									duration: 2000
 								})						
 							}
-					    },
-						fail:(res)=>{
+						}).catch(error=>{
 							uni.showToast({
 								title: res.errMsg,
 								icon: 'fail',
 								duration: 2000
-							});							
-						}
-					});
+							});				
+						});
 				}
 			},
 			// 月份改变
@@ -167,19 +161,12 @@
 			// 日期统计
 			dayBillCount(day){
 				var that = this;
-				uni.request({
-				    url: '/api/ika/v1/accountrecord/statistics', 
-					method: "POST",
-					timeout:3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-					data: {
+				that.$myapi.baseRequest('/api/ika/v1/accountrecord/statistics', 'POST',that.userInfo.token,
+					{
 						keepTime:day,
 						timeQueryType:0
-					},
-				    success: (res) => {
-						if(res.data.status === 1){	
+					}).then(res=>{
+						if(res.data.status === 1){
 							that.dayincomecount = res.data.data.statisticsItem[0].incomeMoney;
 							that.daypaycount = res.data.data.statisticsItem[0].payMoney;
 						}
@@ -190,15 +177,13 @@
 								duration: 2000
 							})						
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						});							
-					}
-				});
+						});				
+					});
 			},
 			// 获取每日账单列表
 			getBillData(){
@@ -207,15 +192,8 @@
 				uni.showLoading({
 					title: '数据获取中……'
 				});
-				uni.request({
-				    url: '/api/ika/v1/accountrecord/findbypage', 
-					method: "POST",
-					timeout:4000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-					data: that.queryBill,
-				    success: (res) => {
+				that.$myapi.baseRequest('/api/ika/v1/accountrecord/findbypage', 'POST',that.userInfo.token,
+					that.queryBill).then(res=>{
 						uni.hideLoading();
 						if(res.data.status === 1){
 							that.billDatas = [],
@@ -231,8 +209,7 @@
 							that.billDatas = [],
 							that.isDataEmpty = true;
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.hideLoading();
 						uni.showToast({
 							title: res.errMsg,
@@ -240,9 +217,8 @@
 							duration: 2000
 						});	
 						that.billDatas = [],
-						that.isDataEmpty = true;
-					}
-				});
+						that.isDataEmpty = true;		
+					});
 			},
 		}
 	}

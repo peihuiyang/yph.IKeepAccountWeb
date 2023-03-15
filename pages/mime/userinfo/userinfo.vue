@@ -183,18 +183,11 @@
 					uni.showLoading({
 						title: '修改中……'
 					});
-					uni.request({
-						url: '/api/ika/v1/user/modifypass', 
-						method: "POST",
-						timeout: 3000,
-						header:{
-							"Authorization":that.userInfo.token
-						},
-						data:{
+					that.$myapi.baseRequest('/api/ika/v1/user/modifypass', 'POST',that.userInfo.token,
+						{
 							name: that.userInfo.id,
 							password: that.passnew
-						},
-						success: (res) => {
+						}).then(res=>{
 							uni.hideLoading();
 							if(res.data.status === 1){	
 								uni.showToast({
@@ -211,16 +204,14 @@
 									duration: 2000
 								})						
 							}
-						},
-						fail:(res)=>{
+						}).catch(error=>{
 							uni.hideLoading();
 							uni.showToast({
 								title: '修改用户密码：' + res.errMsg,
 								icon: 'fail',
 								duration: 2000
-							});							
-						}
-					});
+							});	
+						});
 				}
 			},
 			// 退出登录
@@ -229,17 +220,11 @@
 				uni.showLoading({
 					title: '退出退录中……'
 				});
-				uni.request({
-					url: '/api/ika/v1/user/loginout', 
-					method: "GET",
-					timeout: 3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-					success: (res) => {
+				that.$myapi.baseRequest('/api/ika/v1/user/loginout', 'GET',that.userInfo.token,
+					{}).then(res=>{
 						uni.hideLoading();
 						if(res.data.status === 1){	
-							uni.clearStorage();
+							uni.clearStorageSync();
 							uni.switchTab({
 								url: '/pages/index/index'
 							});
@@ -251,16 +236,14 @@
 								duration: 2000
 							})						
 						}
-					},
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.hideLoading();
 						uni.showToast({
 							title: '退登异常：' + res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						});							
-					}
-				});
+						});		
+					});
 			},
 			// 输入框聚焦变换边框样式
 			UserNamePassWrodFocusBorderStyle(){
@@ -285,14 +268,8 @@
 				uni.showLoading({
 					title: '获取中……'
 				});
-				uni.request({
-					url: '/api/ika/v1/user/findbyid', 
-					method: "GET",
-					timeout: 3000,
-					header:{
-						"Authorization":userInfo.token
-					},
-					success: (res) => {
+				that.$myapi.baseRequest('/api/ika/v1/user/findbyid', 'GET',that.userInfo.token,
+					{}).then(res=>{
 						uni.hideLoading();
 						if(res.data.status === 1){	
 							that.nickName = res.data.data.uName;
@@ -309,16 +286,14 @@
 								duration: 2000
 							})						
 						}
-					},
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.hideLoading();
 						uni.showToast({
 							title: '请求用户信息：' + res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						});							
-					}
-				});
+						});	
+					});
 			},
 			bindPickerChange(e) {
 				this.index = e.detail.value;
@@ -454,15 +429,8 @@
 				uni.showLoading({
 					title: '修改中……'
 				});
-				uni.request({
-					url: '/api/ika/v1/user/modify', 
-					method: "POST",
-					timeout: 3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-					data:datas,
-					success: (res) => {
+				that.$myapi.baseRequest('/api/ika/v1/user/modify', 'POST',that.userInfo.token,
+					datas).then(res=>{
 						uni.hideLoading();
 						if(res.data.status === 1){	
 							uni.showToast({
@@ -479,16 +447,14 @@
 								duration: 2000
 							})						
 						}
-					},
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.hideLoading();
 						uni.showToast({
 							title: '修改用户信息：' + res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						});							
-					}
-				});
+						});	
+					});
 			},
 			imgUpload(file) {
 				let that = this;

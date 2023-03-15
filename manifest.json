@@ -1,8 +1,8 @@
 {
-    "name" : "IKeepAccountWeb",
+    "name" : "亲密记",
     "appid" : "__UNI__78A3C20",
-    "description" : "",
-    "versionName" : "1.0.0",
+    "description" : "便捷，有计划性地记账",
+    "versionName" : "1.1.0",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
@@ -12,8 +12,8 @@
         "nvueStyleCompiler" : "uni-app",
         "splashscreen" : {
             "alwaysShowBeforeRender" : true,
-            "waiting" : true,
-            "autoclose" : true,
+            "waiting" : false,
+            "autoclose" : false,
             "delay" : 0
         },
         "modules" : {},
@@ -23,33 +23,54 @@
             "android" : {
                 /* android打包配置 */
                 "permissions" : [
-                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-                ]
+                ],
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ]
             },
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             /* ios打包配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {},
+                "share" : {
+                    "weixin" : {
+                        "appid" : "",
+                        "UniversalLinks" : ""
+                    }
+                },
+                "statics" : {}
+            },
+            "icons" : {
+                "ios" : {
+                    "appstore" : "D:/文档/图片/logo(1).png"
+                },
+                "android" : {
+                    "xxxhdpi" : "D:/文档/图片/logo(1).png",
+                    "xxhdpi" : "D:/文档/图片/logo(1).png",
+                    "xhdpi" : "D:/文档/图片/logo(1).png",
+                    "hdpi" : "D:/文档/图片/logo(1).png"
+                }
+            },
+            "splashscreen" : {
+                "iosStyle" : "common",
+                "androidStyle" : "default"
+            }
         }
     },
     /* SDK配置 */
     "quickapp" : {},
     /* 快应用特有相关 */
     "mp-weixin" : {
-        /* 小程序特有相关 */
         "appid" : "wxc7a2e02d5af5ffd5",
         "setting" : {
             "urlCheck" : false
@@ -63,11 +84,11 @@
                 "/api/ika" : {
                     "target" : "http://106.13.10.198:8080",
                     "changOrigin" : true,
-                    "secure" : false,
-                    "pathRewrite" : {
-                        "/api" : "/TT/api" //路径重写
-                    }
+                    "secure" : false
                 }
+            },
+            "pathRewrite" : {
+                "/api" : "/TT/api" //路径重写
             },
             "https" : false,
             "disableHostCheck" : false

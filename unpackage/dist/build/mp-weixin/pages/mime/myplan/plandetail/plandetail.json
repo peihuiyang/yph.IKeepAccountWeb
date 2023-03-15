@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "计划详情页",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "l-echart": "../../../../components/lime-echart/components/l-echart/l-echart",
+    "uni-section": "../../../../uni_modules/uni-section/components/uni-section/uni-section",
+    "uni-card": "../../../../uni_modules/uni-card/components/uni-card/uni-card"
+  }
+}

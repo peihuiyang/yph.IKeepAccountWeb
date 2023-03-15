@@ -4,16 +4,17 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "亲密记",
-				"navigationStyle":"custom"
+				"enablePullDownRefresh": true,
+				"navigationStyle":"default"
 			}
 		},   
 		{
             "path" : "pages/bill/bill",
             "style" :                                                                                    
             {
-                "navigationStyle":"custom",
+                "navigationStyle":"default",
 				"enablePullDownRefresh": true,
-                "navigationBarTitleText": ""
+                "navigationBarTitleText": "账单列表"
             }
             
         },
@@ -22,7 +23,8 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationStyle":"custom",
-		        "navigationBarTitleText": ""
+		        "navigationBarTitleText": "",
+				"enablePullDownRefresh": true
 		    }
 		        
 		},
@@ -75,6 +77,15 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "计划详情页",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/advertise/advertise",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             

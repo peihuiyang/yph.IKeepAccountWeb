@@ -118,7 +118,7 @@
 							backgroundColor: '#dd524d'
 					}
 				}],
-				plandaterange:[Date.now(), Date.now() + 500000000],
+				plandaterange:[Date.now() - 500000000, Date.now()],
 				queryBill: {
 				  pageIndex: 1,
 				  pageSize: 10,
@@ -283,14 +283,8 @@
 			// 删除按钮点击事件
 			deleteBill(item){
 				var that = this;
-				uni.request({
-				    url: '/api/ika/v1/accountrecord/delete?id=' + item.id , 
-					method: "DELETE",
-					timeout:3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-				    success: (res) => {
+				that.$myapi.baseRequest('/api/ika/v1/accountrecord/delete?id=' + item.id, 'DELETE',that.userInfo.token,
+					{}).then(res=>{
 						if(res.data.status === 1){
 							uni.showToast({
 								title: res.data.message,
@@ -318,15 +312,13 @@
 								duration: 2000
 							})						
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
-						});							
-					}
-				});
+						});	
+					});
 			},
 			showData(){
 				this.barRightClick();
@@ -353,15 +345,8 @@
 			searchBill(indexPage){
 				var that = this;
 				that.queryBill.pageIndex = indexPage;
-				uni.request({
-				    url: '/api/ika/v1/accountrecord/findbypage', 
-					method: "POST",
-					timeout:3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-					data: that.queryBill,
-				    success: (res) => {
+				that.$myapi.baseRequest('/api/ika/v1/accountrecord/findbypage', 'POST',that.userInfo.token,
+					that.queryBill).then(res=>{
 						if(res.data.status === 1){
 							// 保存到列表
 							if(indexPage === 1){
@@ -393,16 +378,14 @@
 							});
 							that.loadStatus = 'no-more';
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
 						});	
-						that.loadStatus = 'more';						
-					}
-				});
+						that.loadStatus = 'more';
+					});
 			},
 			// 修改账单系列事件
 			// 获取账单类型
@@ -432,15 +415,8 @@
 					uni.showLoading({
 						title: '数据上传中……'
 					});
-					uni.request({
-					    url: '/api/ika/v1/accountrecord/modify', 
-						method: "POST",
-						timeout:3000,
-						header:{
-							"Authorization":that.userInfo.token
-						},
-						data: that.accountFormData,
-					    success: (res) => {
+					that.$myapi.baseRequest('/api/ika/v1/accountrecord/modify', 'POST',that.userInfo.token,
+						that.accountFormData).then(res=>{
 							uni.hideLoading();
 							if(res.data.status === 1){	
 								uni.showToast({
@@ -462,16 +438,14 @@
 									duration: 2000
 								})						
 							}
-					    },
-						fail:(res)=>{
+						}).catch(error=>{
 							uni.hideLoading();
 							uni.showToast({
 								title: res.errMsg,
 								icon: 'fail',
 								duration: 2000
-							});							
-						}
-					});
+							});		
+						});
 				}).catch(err => {
 					uni.showToast({
 						title: err[0].errorMessage,
@@ -490,15 +464,9 @@
 				if(plandate === ''){
 					plandate = tools.formatDate(new Date());
 				}
-				uni.request({
-				    url: '/api/ika/v1/plan/getbydate?date=' + plandate,
-					method: "GET",
-					timeout:3000,
-					header:{
-						"Authorization":that.userInfo.token
-					},
-				    success: (res) => {
-						if(res.data.status === 1){	
+				that.$myapi.baseRequest('/api/ika/v1/plan/getbydate?date=' + plandate, 'GET',that.userInfo.token,
+					{}).then(res=>{
+						if(res.data.status === 1){
 							// 赋值选项列表
 							that.planIdRange = res.data.data;
 						}
@@ -509,15 +477,13 @@
 								duration: 2000
 							})						
 						}
-				    },
-					fail:(res)=>{
+					}).catch(error=>{
 						uni.showToast({
 							title: res.errMsg,
 							icon: 'fail',
 							duration: 2000
 						})
-					}
-				});
+					});
 			},
 			changePlanId(e){
 				this.accountFormData.planId = e;

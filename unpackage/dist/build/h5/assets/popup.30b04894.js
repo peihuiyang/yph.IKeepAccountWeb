@@ -1,0 +1,1 @@
+var t={data:()=>({}),created(){this.popup=this.getParent()},methods:{getParent(t="uniPopup"){let e=this.$parent,r=e.$options.name;for(;r!==t;){if(e=e.$parent,!e)return!1;r=e.$options.name}return e}}};export{t as p};

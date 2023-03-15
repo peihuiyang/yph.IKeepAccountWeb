@@ -1,0 +1,433 @@
+/* 水平间距 */
+/* 水平间距 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-calendar-item__weeks-box[data-v-6097fd5b] {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.uni-calendar-item__weeks-box-text[data-v-6097fd5b] {
+  font-size: 14px;
+  color: #333;
+}
+.uni-calendar-item__weeks-lunar-text[data-v-6097fd5b] {
+  font-size: 12px;
+  color: #333;
+}
+.uni-calendar-item__weeks-box-item[data-v-6097fd5b] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 3.125rem;
+  height: 3.125rem;
+}
+.uni-calendar-item__weeks-box-circle[data-v-6097fd5b] {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background-color: #e43d33;
+}
+.uni-calendar-item--disable[data-v-6097fd5b] {
+  background-color: rgba(249, 249, 249, 0.3);
+  color: #c0c0c0;
+}
+.uni-calendar-item--isDay-text[data-v-6097fd5b] {
+  color: #2979ff;
+}
+.uni-calendar-item--isDay[data-v-6097fd5b] {
+  background-color: #2979ff;
+  opacity: 0.8;
+  color: #fff;
+}
+.uni-calendar-item--extra[data-v-6097fd5b] {
+  color: #e43d33;
+  opacity: 0.8;
+}
+.uni-calendar-item--checked[data-v-6097fd5b] {
+  background-color: #2979ff;
+  color: #fff;
+  opacity: 0.8;
+}
+.uni-calendar-item--multiple[data-v-6097fd5b] {
+  background-color: #2979ff;
+  color: #fff;
+  opacity: 0.8;
+}
+.uni-calendar-item--before-checked[data-v-6097fd5b] {
+  background-color: #ff5a5f;
+  color: #fff;
+}
+.uni-calendar-item--after-checked[data-v-6097fd5b] {
+  background-color: #ff5a5f;
+  color: #fff;
+}
+/* 水平间距 */
+/* 水平间距 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-calendar[data-v-0682a296] {
+  display: flex;
+  flex-direction: column;
+}
+.uni-calendar__mask[data-v-0682a296] {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  opacity: 0;
+  z-index: 99;
+}
+.uni-calendar--mask-show[data-v-0682a296] {
+  opacity: 1;
+}
+.uni-calendar--fixed[data-v-0682a296] {
+  position: fixed;
+  left: 0;
+  right: 0;
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transform: translateY(460px);
+  bottom: calc(var(--window-bottom));
+  z-index: 99;
+}
+.uni-calendar--ani-show[data-v-0682a296] {
+  transform: translateY(0);
+}
+.uni-calendar__content[data-v-0682a296] {
+  background-color: #fff;
+}
+.uni-calendar__header[data-v-0682a296] {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-bottom-color: #EDEDED;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+.uni-calendar--fixed-top[data-v-0682a296] {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top-color: #EDEDED;
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+.uni-calendar--fixed-width[data-v-0682a296] {
+  width: 50px;
+}
+.uni-calendar__backtoday[data-v-0682a296] {
+  position: absolute;
+  right: 0;
+  top: 0.78125rem;
+  padding: 0 5px;
+  padding-left: 10px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  color: #333;
+  background-color: #f1f1f1;
+}
+.uni-calendar__header-text[data-v-0682a296] {
+  text-align: center;
+  width: 100px;
+  font-size: 14px;
+  color: #333;
+}
+.uni-calendar__header-btn-box[data-v-0682a296] {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
+.uni-calendar__header-btn[data-v-0682a296] {
+  width: 10px;
+  height: 10px;
+  border-left-color: #808080;
+  border-left-style: solid;
+  border-left-width: 2px;
+  border-top-color: #555555;
+  border-top-style: solid;
+  border-top-width: 2px;
+}
+.uni-calendar--left[data-v-0682a296] {
+  transform: rotate(-45deg);
+}
+.uni-calendar--right[data-v-0682a296] {
+  transform: rotate(135deg);
+}
+.uni-calendar__weeks[data-v-0682a296] {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+.uni-calendar__weeks-item[data-v-0682a296] {
+  flex: 1;
+}
+.uni-calendar__weeks-day[data-v-0682a296] {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  border-bottom-color: #F5F5F5;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+.uni-calendar__weeks-day-text[data-v-0682a296] {
+  font-size: 14px;
+}
+.uni-calendar__box[data-v-0682a296] {
+  position: relative;
+}
+.uni-calendar__box-bg[data-v-0682a296] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.uni-calendar__box-bg-text[data-v-0682a296] {
+  font-size: 200px;
+  font-weight: bold;
+  color: #999;
+  opacity: 0.1;
+  text-align: center;
+  line-height: 1;
+}
+/* 水平间距 */
+/* 水平间距 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-grid-item[data-v-7b4a3849] {
+  height: 100%;
+  display: flex;
+}
+.uni-grid-item__box[data-v-7b4a3849] {
+  display: flex;
+  width: 100%;
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+}
+.uni-grid-item--border[data-v-7b4a3849] {
+  position: relative;
+  z-index: 0;
+  border-bottom: 1px #D2D2D2 solid;
+  border-right: 1px #D2D2D2 solid;
+}
+.uni-grid-item--border-top[data-v-7b4a3849] {
+  position: relative;
+  border-top: 1px #D2D2D2 solid;
+  z-index: 0;
+}
+.uni-highlight[data-v-7b4a3849]:active {
+  background-color: #f1f1f1;
+}
+/* 水平间距 */
+/* 水平间距 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-grid-wrap[data-v-aaae28a6] {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.uni-grid[data-v-aaae28a6] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.uni-grid--border[data-v-aaae28a6] {
+  position: relative;
+  z-index: 1;
+  border-left: 1px #D2D2D2 solid;
+}
+
+.fui-empty__wrap[data-v-56efe46f] {
+		flex: 1;
+
+		width: 100%;
+		display: flex;
+
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+}
+.fui-empty__fixed[data-v-56efe46f] {
+		position: fixed;
+		left: 0;
+
+		top: 50%;
+		transform: translateY(-50%);
+
+
+
+
+
+
+
+		z-index: 99;
+}
+.fui-empty__title[data-v-56efe46f] {
+		text-align: center;
+		font-weight: 500;
+		padding-top: 1.5rem;
+}
+.fui-empty__desc[data-v-56efe46f] {
+		text-align: center;
+		font-weight: normal;
+		padding-top: 0.25rem;
+}
+.fui-empty__title-color[data-v-56efe46f] {
+		color: var(--fui-color-section, #333333) !important;
+}
+.fui-empty__descr-color[data-v-56efe46f] {
+		color: var(--fui-color-label, #B2B2B2) !important;
+}
+
+
+
+
+.uni_grid{
+		background-color: white;
+}
+.gridimage {
+		width: 25px;
+		height: 25px;
+}
+.gridtext {
+		font-size: 10px;
+		margin-top: 2px;
+}
+.gridtext2{
+		font-size: 15px;
+		margin-top: 5px;
+		color: #00FFFF;
+}
+.gridtext3{
+		font-size: 15px;
+		margin-top: 5px;
+		color: indianred;
+}
+.grid-item-box {
+		flex: 1;
+
+		display: flex;
+
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 15px 0;
+}
+	/* 列表 */
+.data_empty{
+		height: 18.75rem;
+}
+.fui_empty{
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+}
+.billcard {
+		height: 6.25rem;
+		background-color: white;
+		//box-shadow: 0 0 5px #666666;
+}
+.billneirong {
+		margin-top: 0.3125rem;
+		margin-left: 1.5625rem;
+		width: 20.3125rem;
+		margin-right: 1.5625rem;
+}
+.billtitle {
+		font-size: 1.25rem;
+}
+.billtypename {
+		font-size: 0.9375rem;
+		margin-top: 15px;
+		color: #666666;
+}
+.billtime {
+		font-size: 0.9375rem;
+		margin-top: 0.46875rem;
+		color: #666666;
+}
+.billprice {
+		width: 100%;
+		font-size: 1.25rem;
+		margin-top: -4.53125rem;
+		text-align: right;
+		margin-right: 0.9375rem;
+		color: #00FFFF;
+}
+.billprice1 {
+		width: 100%;
+		font-size: 1.25rem;
+		margin-top: -4.53125rem;
+		text-align: right;
+		margin-right: 0.9375rem;
+		color: red;
+}
